@@ -15,15 +15,77 @@ class RootScreen extends StatelessWidget {
           CustomAppBar(
               height: appBarHeight, imageUrl: image, title: 'Insecure'),
           HorizontalSection(
+              title: 'Top Picks for Alinafe',
               list: ListView(
                   scrollDirection: Axis.horizontal,
                   children: List.generate(
                       10, (index) => MovieThumbnail(image: image)))),
           HorizontalSection(
+              title: 'Continue Watching',
               list: ListView(
                   scrollDirection: Axis.horizontal,
                   children: List.generate(10,
                       (index) => MovieThumbnail(image: image, isLarge: true)))),
+          HorizontalSection(
+              title: 'Live Channels',
+              list: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(10,
+                      (index) => MovieThumbnail(image: image, isLarge: true)))),
+          HorizontalSection(
+              title: 'Only on Showmax',
+              list: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(
+                      10, (index) => MovieThumbnail(image: image)))),
+          HorizontalSection(
+              title: 'The Best of HBO',
+              list: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(
+                      10, (index) => MovieThumbnail(image: image)))),
+          HorizontalSection(
+              title: 'Recently Added Movies',
+              list: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(
+                      10, (index) => MovieThumbnail(image: image)))),
+          HorizontalSection(
+              title: 'Because you watched Temptation Island South Africa',
+              list: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(
+                      10, (index) => MovieThumbnail(image: image)))),
+          HorizontalSection(
+              title: 'Recently Added Movies',
+              list: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(10,
+                      (index) => MovieThumbnail(image: image, isLarge: true)))),
+          HorizontalSection(
+              title: 'Top 20 on Showmax',
+              list: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(
+                      10, (index) => MovieThumbnail(image: image)))),
+          HorizontalSection(
+              title: 'Coming on Showmax',
+              list: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(10,
+                      (index) => MovieThumbnail(image: image, isLarge: true)))),
+          HorizontalSection(
+              title: 'Trending',
+              list: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(10,
+                      (index) => MovieThumbnail(image: image, isLarge: true)))),
+          HorizontalSection(
+              title: 'Blokbusters',
+              list: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(
+                      10, (index) => MovieThumbnail(image: image)))),
         ],
       ),
     );
@@ -31,9 +93,11 @@ class RootScreen extends StatelessWidget {
 }
 
 class HorizontalSection extends StatelessWidget {
-  const HorizontalSection({Key? key, required this.list}) : super(key: key);
+  const HorizontalSection({Key? key, required this.list, required this.title})
+      : super(key: key);
 
   final Widget list;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +107,14 @@ class HorizontalSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-              child: Text("Top picks for Alinafe",
-                  style: TextStyle(color: Colors.white)),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+              child: Text(title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w600, color: Colors.white)),
             ),
             SizedBox(
                 height: MediaQuery.of(context).size.height * 0.16, child: list)
