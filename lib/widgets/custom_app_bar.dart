@@ -34,7 +34,7 @@ class CustomAppBar extends StatelessWidget {
                   children: [
                     Image.network(
                       imageUrl,
-                      fit: BoxFit.fitHeight,
+                      fit: BoxFit.cover,
                     ),
                     Positioned(
                         bottom: -2,
@@ -45,13 +45,14 @@ class CustomAppBar extends StatelessWidget {
                                     end: Alignment.topCenter,
                                     colors: [
                                   Colors.black.withOpacity(1),
-                                  Colors.black.withOpacity(0.6),
+                                  Colors.black.withOpacity(0.2),
                                   Colors.black.withOpacity(0.0),
                                 ])),
                             padding: const EdgeInsets.all(16),
                             width: MediaQuery.of(context).size.width,
                             child: Text(title,
                                 textAlign: TextAlign.center,
+                                maxLines: 1,
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 22,

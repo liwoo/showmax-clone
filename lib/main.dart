@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:showmax_clone/bloc/movie_cubit.dart';
 import 'package:showmax_clone/screens/root.dart';
 
 void main() {
@@ -11,10 +13,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Showmax Clone',
-        theme:
-            ThemeData(primarySwatch: Colors.pink, canvasColor: Colors.black87),
-        home: const RootScreen());
+    return BlocProvider<MovieCubit>(
+      create: (context) => MovieCubit(),
+      child: MaterialApp(
+          title: 'Showmax Clone',
+          theme: ThemeData(
+              primarySwatch: Colors.pink, canvasColor: Colors.black87),
+          home: const RootScreen()),
+    );
   }
 }
