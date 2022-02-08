@@ -26,12 +26,14 @@ class _$MovieTearOff {
       {required String title,
       required String imdbId,
       required String posterUrl,
-      Labels label = Labels.none}) {
+      Labels label = Labels.none,
+      double playbackLength = 0}) {
     return _Movie(
       title: title,
       imdbId: imdbId,
       posterUrl: posterUrl,
       label: label,
+      playbackLength: playbackLength,
     );
   }
 
@@ -49,6 +51,7 @@ mixin _$Movie {
   String get imdbId => throw _privateConstructorUsedError;
   String get posterUrl => throw _privateConstructorUsedError;
   Labels get label => throw _privateConstructorUsedError;
+  double get playbackLength => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,7 +62,12 @@ mixin _$Movie {
 abstract class $MovieCopyWith<$Res> {
   factory $MovieCopyWith(Movie value, $Res Function(Movie) then) =
       _$MovieCopyWithImpl<$Res>;
-  $Res call({String title, String imdbId, String posterUrl, Labels label});
+  $Res call(
+      {String title,
+      String imdbId,
+      String posterUrl,
+      Labels label,
+      double playbackLength});
 }
 
 /// @nodoc
@@ -76,6 +84,7 @@ class _$MovieCopyWithImpl<$Res> implements $MovieCopyWith<$Res> {
     Object? imdbId = freezed,
     Object? posterUrl = freezed,
     Object? label = freezed,
+    Object? playbackLength = freezed,
   }) {
     return _then(_value.copyWith(
       title: title == freezed
@@ -94,6 +103,10 @@ class _$MovieCopyWithImpl<$Res> implements $MovieCopyWith<$Res> {
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as Labels,
+      playbackLength: playbackLength == freezed
+          ? _value.playbackLength
+          : playbackLength // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -103,7 +116,12 @@ abstract class _$MovieCopyWith<$Res> implements $MovieCopyWith<$Res> {
   factory _$MovieCopyWith(_Movie value, $Res Function(_Movie) then) =
       __$MovieCopyWithImpl<$Res>;
   @override
-  $Res call({String title, String imdbId, String posterUrl, Labels label});
+  $Res call(
+      {String title,
+      String imdbId,
+      String posterUrl,
+      Labels label,
+      double playbackLength});
 }
 
 /// @nodoc
@@ -121,6 +139,7 @@ class __$MovieCopyWithImpl<$Res> extends _$MovieCopyWithImpl<$Res>
     Object? imdbId = freezed,
     Object? posterUrl = freezed,
     Object? label = freezed,
+    Object? playbackLength = freezed,
   }) {
     return _then(_Movie(
       title: title == freezed
@@ -139,6 +158,10 @@ class __$MovieCopyWithImpl<$Res> extends _$MovieCopyWithImpl<$Res>
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as Labels,
+      playbackLength: playbackLength == freezed
+          ? _value.playbackLength
+          : playbackLength // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -150,7 +173,8 @@ class _$_Movie implements _Movie {
       {required this.title,
       required this.imdbId,
       required this.posterUrl,
-      this.label = Labels.none});
+      this.label = Labels.none,
+      this.playbackLength = 0});
 
   factory _$_Movie.fromJson(Map<String, dynamic> json) =>
       _$$_MovieFromJson(json);
@@ -164,10 +188,13 @@ class _$_Movie implements _Movie {
   @JsonKey()
   @override
   final Labels label;
+  @JsonKey()
+  @override
+  final double playbackLength;
 
   @override
   String toString() {
-    return 'Movie(title: $title, imdbId: $imdbId, posterUrl: $posterUrl, label: $label)';
+    return 'Movie(title: $title, imdbId: $imdbId, posterUrl: $posterUrl, label: $label, playbackLength: $playbackLength)';
   }
 
   @override
@@ -178,7 +205,9 @@ class _$_Movie implements _Movie {
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality().equals(other.imdbId, imdbId) &&
             const DeepCollectionEquality().equals(other.posterUrl, posterUrl) &&
-            const DeepCollectionEquality().equals(other.label, label));
+            const DeepCollectionEquality().equals(other.label, label) &&
+            const DeepCollectionEquality()
+                .equals(other.playbackLength, playbackLength));
   }
 
   @override
@@ -187,7 +216,8 @@ class _$_Movie implements _Movie {
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(imdbId),
       const DeepCollectionEquality().hash(posterUrl),
-      const DeepCollectionEquality().hash(label));
+      const DeepCollectionEquality().hash(label),
+      const DeepCollectionEquality().hash(playbackLength));
 
   @JsonKey(ignore: true)
   @override
@@ -205,7 +235,8 @@ abstract class _Movie implements Movie {
       {required String title,
       required String imdbId,
       required String posterUrl,
-      Labels label}) = _$_Movie;
+      Labels label,
+      double playbackLength}) = _$_Movie;
 
   factory _Movie.fromJson(Map<String, dynamic> json) = _$_Movie.fromJson;
 
@@ -217,6 +248,8 @@ abstract class _Movie implements Movie {
   String get posterUrl;
   @override
   Labels get label;
+  @override
+  double get playbackLength;
   @override
   @JsonKey(ignore: true)
   _$MovieCopyWith<_Movie> get copyWith => throw _privateConstructorUsedError;

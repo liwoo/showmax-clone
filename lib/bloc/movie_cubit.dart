@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:showmax_clone/models/movie.dart';
@@ -33,7 +35,10 @@ class MovieCubit extends Cubit<MovieState> {
             return movie.copyWith(label: labels.first);
           }).toList(),
           popularMovies: popularMovies,
-          continueWatching: continueWatching,
+          continueWatching: continueWatching.map((movie) {
+            var random = Random().nextDouble();
+            return movie.copyWith(playbackLength: random);
+          }).toList(),
           exclusives: recentMovies.sublist(11),
           recommendedMovies: trendingMovies.sublist(11).map((movie) {
             labels.shuffle();

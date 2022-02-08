@@ -6,6 +6,8 @@ class CustomToolBar extends StatelessWidget {
       required this.minHeight,
       required this.padding,
       required this.shrinkOffset,
+      this.user = "Alinafe",
+      this.isDetails = false,
       required this.maxHeight})
       : super(key: key);
 
@@ -13,6 +15,8 @@ class CustomToolBar extends StatelessWidget {
   final double maxHeight;
   final double padding;
   final double shrinkOffset;
+  final String user;
+  final bool isDetails;
 
   Color makeStickyHeaderBgColor(shrinkOffset) {
     final int alpha =
@@ -51,28 +55,40 @@ class CustomToolBar extends StatelessWidget {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                        width: 28,
-                                        height: 28,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(32),
-                                            color: Colors.pink),
-                                        child: const Text("A",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white))),
-                                    const SizedBox(width: 8),
-                                    const Text("Alinafe",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold)),
-                                  ],
-                                ),
+                                if (isDetails)
+                                  Transform.translate(
+                                    offset: const Offset(-10, 0),
+                                    child: IconButton(
+                                        icon: const Icon(Icons.close),
+                                        iconSize: 28,
+                                        color: Colors.white,
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        }),
+                                  ),
+                                if (!isDetails)
+                                  Row(
+                                    children: [
+                                      Container(
+                                          width: 28,
+                                          height: 28,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(32),
+                                              color: Colors.pink),
+                                          child: const Text("A",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.white))),
+                                      const SizedBox(width: 8),
+                                      const Text("Alinafe",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold)),
+                                    ],
+                                  ),
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
@@ -84,6 +100,11 @@ class CustomToolBar extends StatelessWidget {
                                           icon: const Icon(Icons.search,
                                               color: Colors.white),
                                           onPressed: () {}),
+                                      if (isDetails)
+                                        IconButton(
+                                            icon: const Icon(Icons.share,
+                                                color: Colors.white),
+                                            onPressed: () {}),
                                     ]),
                               ])))))
         ],

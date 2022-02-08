@@ -17,6 +17,7 @@ class Movie with _$Movie {
     required String imdbId,
     required String posterUrl,
     @Default(Labels.none) Labels label,
+    @Default(0) double playbackLength,
   }) = _Movie;
 
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
