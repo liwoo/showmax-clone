@@ -66,7 +66,8 @@ class MovieThumbnail extends StatelessWidget {
                   Positioned(
                       top: -1,
                       right: -1,
-                      child: SvgPicture.asset('assets/images/${movie.label}')),
+                      child: SvgPicture.asset(
+                          'assets/images/${labelToImage[movie.label]}')),
                   if (withControls)
                     Center(
                       child: Container(

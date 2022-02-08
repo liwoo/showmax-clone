@@ -16,9 +16,11 @@ class MovieCubit extends Cubit<MovieState> {
       final recentMovies = await _movieRepository.getRecentMovies();
       final upcomingMovies = await _movieRepository.getUpcomingMovies();
       final randomMovies = await _movieRepository.getRandomMovies();
-
+      final trendingMovies = await _movieRepository.getTrendingMovies();
+      var labels = List.from(Labels.values);
       recentMovies.shuffle();
       randomMovies.shuffle();
+      popularMovies.shuffle();
       //combine recentMovies with randomMovies
       var topPicks = recentMovies.sublist(0, 4)
         ..addAll(randomMovies.sublist(0, 4));
@@ -26,13 +28,29 @@ class MovieCubit extends Cubit<MovieState> {
         ..addAll(randomMovies.sublist(4, 6));
       emit(MovieLandingLoadingSuccessful(
           promoted: popularMovies.first,
-          topPicks: topPicks,
+          topPicks: topPicks.map((movie) {
+            labels.shuffle();
+            return movie.copyWith(label: labels.first);
+          }).toList(),
+          popularMovies: popularMovies,
           continueWatching: continueWatching,
-          trendingMovies: popularMovies.toList(),
-          upcomingMovies: upcomingMovies.toList(),
-          bestOf: popularMovies.sublist(1, 11),
-          recentMovies: recentMovies.sublist(0, 10),
-          randomMovies: popularMovies.toList()));
+          exclusives: recentMovies.sublist(11),
+          recommendedMovies: trendingMovies.sublist(11).map((movie) {
+            labels.shuffle();
+            return movie.copyWith(label: labels.first);
+          }).toList(),
+          trendingMovies: trendingMovies.sublist(0, 10),
+          upcomingMovies: upcomingMovies
+              .sublist(0, 10)
+              .map((movie) => movie.copyWith(label: Labels.comingSoon))
+              .toList(),
+          liveMovies: upcomingMovies.sublist(10, 15),
+          bestOf: popularMovies.sublist(1, 10),
+          recentMovies: recentMovies
+              .sublist(0, 10)
+              .map((movie) => movie.copyWith(label: Labels.newThing))
+              .toList(),
+          randomMovies: randomMovies.sublist(0, 10)));
     } catch (e) {
       emit(MovieLandingLoadingFailed(message: e.toString()));
     }
