@@ -7,7 +7,7 @@ class CustomToolBar extends StatelessWidget {
       required this.padding,
       required this.shrinkOffset,
       this.user = "Alinafe",
-      this.isDetails = false,
+      this.isDetails = true,
       required this.maxHeight})
       : super(key: key);
 
@@ -22,6 +22,17 @@ class CustomToolBar extends StatelessWidget {
     final int alpha =
         (shrinkOffset / (maxHeight + 350) * 255).clamp(0, 255).toInt();
     return Color.fromARGB(alpha, 0, 0, 0);
+  }
+
+  double getCloseRingRadius(shrinkOffset) {
+    return (shrinkOffset.abs() / 100).clamp(0, 1).toDouble();
+  }
+
+  double getFadeOpacity(shrinkOffset) {
+    //inverse of getCloseRingRadius
+    return shrinkOffset < 0
+        ? (1 - getCloseRingRadius(shrinkOffset)).clamp(0, 1).toDouble()
+        : 1;
   }
 
   @override
@@ -40,6 +51,17 @@ class CustomToolBar extends StatelessWidget {
                 Color(0x40000000),
                 Color(0x00000000),
               ]))),
+          Positioned(
+              left: 17,
+              bottom: 17,
+              child: SizedBox(
+                height: 30,
+                width: 30,
+                child: CircularProgressIndicator(
+                    value: getCloseRingRadius(shrinkOffset),
+                    strokeWidth: 2,
+                    color: Colors.white),
+              )),
           Positioned(
               top: 0,
               left: 0,
@@ -93,8 +115,10 @@ class CustomToolBar extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       IconButton(
-                                          icon: const Icon(Icons.cast,
-                                              color: Colors.white),
+                                          icon: Icon(Icons.cast,
+                                              color: Colors.white.withOpacity(
+                                                  getFadeOpacity(
+                                                      shrinkOffset))),
                                           onPressed: () {}),
                                       IconButton(
                                           icon: const Icon(Icons.search,
