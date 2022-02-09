@@ -11,7 +11,18 @@ class MovieScreen extends StatefulWidget {
 }
 
 class _MovieScreenState extends State<MovieScreen> {
-  final _offset = 0.0;
+  final ScrollController _scrollController = ScrollController();
+  double _offset = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      setState(() {
+        _offset = _scrollController.offset;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +32,25 @@ class _MovieScreenState extends State<MovieScreen> {
       body: Stack(
         children: [
           CustomScrollView(
+            controller: _scrollController,
             slivers: [
               CustomAppBar(
+                shrinkOffset: _offset,
+                shouldFade: true,
                 title: movie.title,
                 height: appBarHeight,
                 imageUrl: movie.posterUrl,
               ),
               SliverToBoxAdapter(
-                child: Text(movie.title,
-                    style: const TextStyle(fontSize: 24, color: Colors.white)),
+                child: Column(
+                  children: [
+                    const Placeholder(fallbackHeight: 200),
+                    const Placeholder(fallbackHeight: 200),
+                    Text(movie.title,
+                        style:
+                            const TextStyle(fontSize: 24, color: Colors.white)),
+                  ],
+                ),
               ),
             ],
           ),

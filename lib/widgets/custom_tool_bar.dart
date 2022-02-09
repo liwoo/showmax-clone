@@ -7,7 +7,7 @@ class CustomToolBar extends StatelessWidget {
       required this.padding,
       required this.shrinkOffset,
       this.user = "Alinafe",
-      this.isDetails = true,
+      this.isDetails = false,
       required this.maxHeight})
       : super(key: key);
 
@@ -25,12 +25,13 @@ class CustomToolBar extends StatelessWidget {
   }
 
   double getCloseRingRadius(shrinkOffset) {
-    return (shrinkOffset.abs() / 100).clamp(0, 1).toDouble();
+    return shrinkOffset < 0 && isDetails
+        ? (shrinkOffset.abs() / 100).clamp(0, 1).toDouble()
+        : 0;
   }
 
   double getFadeOpacity(shrinkOffset) {
-    //inverse of getCloseRingRadius
-    return shrinkOffset < 0
+    return shrinkOffset < 0 && isDetails
         ? (1 - getCloseRingRadius(shrinkOffset)).clamp(0, 1).toDouble()
         : 1;
   }
@@ -121,13 +122,17 @@ class CustomToolBar extends StatelessWidget {
                                                       shrinkOffset))),
                                           onPressed: () {}),
                                       IconButton(
-                                          icon: const Icon(Icons.search,
-                                              color: Colors.white),
+                                          icon: Icon(Icons.search,
+                                              color: Colors.white.withOpacity(
+                                                  getFadeOpacity(
+                                                      shrinkOffset))),
                                           onPressed: () {}),
                                       if (isDetails)
                                         IconButton(
-                                            icon: const Icon(Icons.share,
-                                                color: Colors.white),
+                                            icon: Icon(Icons.share,
+                                                color: Colors.white.withOpacity(
+                                                    getFadeOpacity(
+                                                        shrinkOffset))),
                                             onPressed: () {}),
                                     ]),
                               ])))))

@@ -76,6 +76,7 @@ class _RootScreenState extends State<RootScreen> {
                 controller: _scrollController,
                 slivers: [
                   CustomAppBar(
+                      shrinkOffset: _offset,
                       height: appBarHeight,
                       imageUrl: state.promoted.posterUrl,
                       title: state.promoted.title),
