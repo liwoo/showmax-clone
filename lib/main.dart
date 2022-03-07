@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider<MovieCubit>(
       create: (context) => MovieCubit(),
       child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Showmax Clone',
           theme: ThemeData(
               primarySwatch: Colors.pink, canvasColor: Colors.black87),
